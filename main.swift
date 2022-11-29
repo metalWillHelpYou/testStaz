@@ -1,4 +1,5 @@
 import Foundation
+import UIkit
 
 //Basic data types / variables
 var var1: Int = 20 //create variables of different data types
@@ -36,10 +37,8 @@ for _ in 1...10 { //for - in
 }
 //output: 5 5 5 5 5 5 5 5 5 5
 
-
 var1 <= value1 ? print("var1 is less than or equal to value1") : print("var1 is greater than value1")//ternary operator
 //output: var1 is greater than value1
-
 
 //Cycles
 let myMusic = ["metal", "rock", "jazz"] //for - in
@@ -78,6 +77,10 @@ for (index, value) in shoppingList.enumerated() { //printing out all elements of
     print("Item \(index) is \(value)")
 }
 
+let board = Array(repeating: Array(repeating: 0, count: 8), count: 8) //two-dimensional array
+board[0][0] //access to individual values
+board.forEach({ print($0) })
+
 //Functions
 func printWholeName(firstName: String, secondName: String) {
         print(firstName.capitalized + " " + secondName.capitalized)
@@ -107,7 +110,7 @@ func generateWallet(walletLeignt: Int) -> [Int] {
 }
 generateWallet(walletLeignt: 5)
 
-func sumWallet (banknotesFunction wallet: (Int) -> [Int], walletLength: Int) -> Int? {
+func sumWallet(banknotesFunction wallet: (Int) -> [Int], walletLength: Int) -> Int? {
     let myWallet = wallet(walletLength)
     var sum = 0
     for bancnote in myWallet {
@@ -116,3 +119,50 @@ func sumWallet (banknotesFunction wallet: (Int) -> [Int], walletLength: Int) -> 
     return sum
 }
 sumWallet(banknotesFunction: generateWallet(walletLeignt:), walletLength: 5)
+
+//OOP
+class Ucitel {
+    var titul = ""
+    var name = ""
+    var lastName = ""
+    var dayOfBirth = 1
+}
+
+class Student {
+    var name = ""
+    var lastName = ""
+    var dayOfBirth = 1
+    var registrationData: Int?
+}
+
+let ucitel = Ucitel()
+let student = Student()
+
+//OOP 2
+class Student1 {
+    enum Mounth {
+        case January, February, March, April, May, June, July, August, September, October, November, Desember
+    }
+    var name: String
+    var lastName: String
+    var dayOfBirth: (Int, Mounth)
+    var registrationDate: (Int, Mounth)?
+    
+    init(name: String, lastName: String, dayOfBirth: (Int, Mounth), registrationDate: (Int, Mounth)?) {
+        self.name = name.capitalized
+        self.lastName = lastName.capitalized
+        self.dayOfBirth = dayOfBirth
+        self.registrationDate = registrationDate
+    }
+    
+}
+
+class Ucitel1: Student {
+    enum Title {
+        case Bc, Ing, MUDr, Mgr, PhD, Prof, Doc, Dr, DiS
+    }
+    var title: Title = .Ing
+}
+
+let me = Student1(name: "Daniil", lastName: "Krivonogov", dayOfBirth: (1, .October), registrationDate: (12,.August))
+let ucitel1 = Ucitel()
