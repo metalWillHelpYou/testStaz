@@ -37,7 +37,7 @@ for _ in 1...10 { //for - in
 }
 //output: 5 5 5 5 5 5 5 5 5 5
 
-var1 <= value1 ? print("var1 is less than or equal to value1") : print("var1 is greater than value1")//ternary operator
+var1 <= value1 ? print("var1 is less than or equal to value1") : print("var1 is greater than value1") //ternary operator
 //output: var1 is greater than value1
 
 //Cycles
@@ -53,7 +53,7 @@ while var1 < 30 { //while
 print(var1)
 //output: 30
 
-repeat { // repeat - while
+repeat { //repeat - while
     value1 -= 1
 } while value1 <= 1
 print(value1)
@@ -62,12 +62,12 @@ print(value1)
 //Array
 var shoppingList = ["eggs" ,"milk" ,"bread" ,"sweets"]
 shoppingList.count //number of array elements
-shoppingList.isEmpty // checking array for elements
+shoppingList.isEmpty //checking array for elements
 shoppingList.append("butter") // adding an element to array
-shoppingList[0] // output an array element at a given index
+shoppingList[0] //output an array element at a given index
 shoppingList[1] = "salt" //assigning a new value to array element at a given index
-shoppingList.insert("sugar", at: 2) // adding a new array element at a given index
-shoppingList += ["pepper"] // adding a new array element
+shoppingList.insert("sugar", at: 2) //adding a new array element at a given index
+shoppingList += ["pepper"] //adding a new array element
 
 for item in shoppingList { //printing out all elements of array
     print(item)
@@ -121,32 +121,24 @@ func sumWallet(banknotesFunction wallet: (Int) -> [Int], walletLength: Int) -> I
 sumWallet(banknotesFunction: generateWallet(walletLeignt:), walletLength: 5)
 
 //OOP
-class Ucitel {
-    var titul = ""
-    var name = ""
-    var lastName = ""
-    var dayOfBirth = 1
-}
-
-class Student {
-    var name = ""
-    var lastName = ""
-    var dayOfBirth = 1
-    var registrationData: Int?
-}
-
-let ucitel = Ucitel()
-let student = Student()
-
-//OOP 2
-class Student1 {
+class NewStudent {
     enum Mounth {
         case January, February, March, April, May, June, July, August, September, October, November, Desember
     }
+    enum Title {
+        case Bc, Ing, MUDr, Mgr, PhD, Prof, Doc, Dr, DiS
+    }
     var name: String
     var lastName: String
+    var fullName: String {
+        name + " " + lastName
+    }
     var dayOfBirth: (Int, Mounth)
     var registrationDate: (Int, Mounth)?
+    
+    func sayHello() {
+        print("Hello, my name is " + fullName)
+    }
     
     init(name: String, lastName: String, dayOfBirth: (Int, Mounth), registrationDate: (Int, Mounth)?) {
         self.name = name.capitalized
@@ -154,15 +146,39 @@ class Student1 {
         self.dayOfBirth = dayOfBirth
         self.registrationDate = registrationDate
     }
-    
 }
 
-class Ucitel1: Student {
-    enum Title {
-        case Bc, Ing, MUDr, Mgr, PhD, Prof, Doc, Dr, DiS
+class NewUcitel: NewStudent {
+    var title: Title
+    var experience: Int
+    var subjectAmount: Int
+    var salary: Float {
+        return Float(experience * subjectAmount * 1000)
     }
-    var title: Title = .Ing
+    private var tax: Float { //example of encapsulation
+        if salary <= 20000 {
+            return 0.9
+        } else {
+            return 0.7
+        }
+    }
+    var salaryArterTax: Float {
+        return salary * tax
+    }
+    
+    init(name: String, lastName: String, dayOfBirth: (Int, Mounth), registrationDate: (Int, Mounth)?, title: Title, experience: Int, subjectAmount: Int) {
+        self.title = title
+        self.experience = experience
+        self.subjectAmount = subjectAmount
+        super.init(name: name, lastName: lastName, dayOfBirth: dayOfBirth, registrationDate: registrationDate)
+    }
 }
 
-let me = Student1(name: "Daniil", lastName: "Krivonogov", dayOfBirth: (1, .October), registrationDate: (12,.August))
-let ucitel1 = Ucitel()
+let me = NewStudent(name: "Daniil", lastName: "Krivonogov", dayOfBirth: (1, .October), registrationDate: (12,.August))
+let newUcitel = NewUcitel(name: "Martin", lastName: "Martinek", dayOfBirth: (24, .January), registrationDate: (10, .July), title: .Ing, experience: 9, subjectAmount: 3)
+
+var classroom = [me, newUcitel] //example of polymorphism
+for i in classroom {
+    print(i.sayHello())
+}
+
