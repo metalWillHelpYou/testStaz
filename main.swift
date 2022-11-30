@@ -121,6 +121,24 @@ func sumWallet(banknotesFunction wallet: (Int) -> [Int], walletLength: Int) -> I
 sumWallet(banknotesFunction: generateWallet(walletLeignt:), walletLength: 5)
 
 //OOP
+class Ucitel {
+    var titul = ""
+    var name = ""
+    var lastName = ""
+    var dayOfBirth = 1
+}
+
+class Student {
+    var name = ""
+    var lastName = ""
+    var dayOfBirth = 1
+    var registrationData: Int?
+}
+
+let ucitel = Ucitel()
+let student = Student()
+
+//OOP 2
 class NewStudent {
     enum Mounth {
         case January, February, March, April, May, June, July, August, September, October, November, Desember
@@ -175,7 +193,8 @@ class NewUcitel: NewStudent {
 }
 
 let me = NewStudent(name: "Daniil", lastName: "Krivonogov", dayOfBirth: (1, .October), registrationDate: (12,.August))
-let newUcitel = NewUcitel(name: "Martin", lastName: "Martinek", dayOfBirth: (24, .January), registrationDate: (10, .July), title: .Ing, experience: 9, subjectAmount: 3)
+let newUcitel = NewUcitel(name: "Martin", lastName: "Martinek", dayOfBirth: (24, .January), registrationDate: (10, .July),
+                          title: .Ing, experience: 9, subjectAmount: 3)
 
 var classroom = [me, newUcitel] //example of polymorphism
 for i in classroom {
