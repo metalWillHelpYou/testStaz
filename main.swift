@@ -200,4 +200,3 @@ var classroom = [me, newUcitel] //example of polymorphism
 for i in classroom {
     print(i.sayHello())
 }
-
