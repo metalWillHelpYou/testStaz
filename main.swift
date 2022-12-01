@@ -140,7 +140,7 @@ let student = Student()
 
 //OOP 2
 class NewStudent {
-    enum Mounth {
+    enum Month {
         case January, February, March, April, May, June, July, August, September, October, November, Desember
     }
     enum Title {
@@ -151,14 +151,14 @@ class NewStudent {
     var fullName: String {
         name + " " + lastName
     }
-    var dayOfBirth: (Int, Mounth)
-    var registrationDate: (Int, Mounth)?
+    var dayOfBirth: (Int, Month)
+    var registrationDate: (Int, Month)?
     
     func sayHello() {
         print("Hello, my name is " + fullName)
     }
     
-    init(name: String, lastName: String, dayOfBirth: (Int, Mounth), registrationDate: (Int, Mounth)?) {
+    init(name: String, lastName: String, dayOfBirth: (Int, Month), registrationDate: (Int, Month)?) {
         self.name = name.capitalized
         self.lastName = lastName.capitalized
         self.dayOfBirth = dayOfBirth
@@ -184,7 +184,7 @@ class NewUcitel: NewStudent {
         return salary * tax
     }
     
-    init(name: String, lastName: String, dayOfBirth: (Int, Mounth), registrationDate: (Int, Mounth)?, title: Title, experience: Int, subjectAmount: Int) {
+    init(name: String, lastName: String, dayOfBirth: (Int, Month), registrationDate: (Int, Month)?, title: Title, experience: Int, subjectAmount: Int) {
         self.title = title
         self.experience = experience
         self.subjectAmount = subjectAmount
