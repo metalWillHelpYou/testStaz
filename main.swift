@@ -151,14 +151,14 @@ class NewStudent {
     var fullName: String {
         name + " " + lastName
     }
-    var dayOfBirth: (Int, .Month)
-    var registrationDate: (Int, .Month)?
+    var dayOfBirth: (Int, Month)
+    var registrationDate: (Int, Month)?
     
     func sayHello() {
         print("Hello, my name is " + fullName)
     }
     
-    init(name: String, lastName: String, dayOfBirth: (Int, .Month), registrationDate: (Int, .Month)?) {
+    init(name: String, lastName: String, dayOfBirth: (Int, Month), registrationDate: (Int, Month)?) {
         self.name = name.capitalized
         self.lastName = lastName.capitalized
         self.dayOfBirth = dayOfBirth
@@ -184,7 +184,7 @@ class NewUcitel: NewStudent {
         return salary * tax
     }
     
-    init(name: String, lastName: String, dayOfBirth: (Int, .Month), registrationDate: (Int, .Month)?, title: Title, experience: Int, subjectAmount: Int) {
+    init(name: String, lastName: String, dayOfBirth: (Int, Month), registrationDate: (Int, Month)?, title: Title, experience: Int, subjectAmount: Int) {
         self.title = title
         self.experience = experience
         self.subjectAmount = subjectAmount
