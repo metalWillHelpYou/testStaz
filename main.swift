@@ -121,7 +121,7 @@ func sumWallet(banknotesFunction wallet: (Int) -> [Int], walletLength: Int) -> I
 sumWallet(banknotesFunction: generateWallet(walletLeignt:), walletLength: 5)
 
 //OOP
-class Ucitel {
+class Teacher {
     var titul = ""
     var name = ""
     var lastName = ""
@@ -135,68 +135,80 @@ class Student {
     var registrationData: Int?
 }
 
-let ucitel = Ucitel()
+let teacher = Teacher()
 let student = Student()
 
 //OOP 2
-class NewStudent {
-    enum Month {
-        case January, February, March, April, May, June, July, August, September, October, November, Desember
-    }
-    enum Title {
-        case Bc, Ing, MUDr, Mgr, PhD, Prof, Doc, Dr, DiS
-    }
+class Human {
     var name: String
     var lastName: String
     var fullName: String {
         name + " " + lastName
     }
-    var dayOfBirth: (Int, Month)
-    var registrationDate: (Int, Month)?
+    var dateOfBirth: Date
     
     func sayHello() {
         print("Hello, my name is " + fullName)
     }
     
-    init(name: String, lastName: String, dayOfBirth: (Int, Month), registrationDate: (Int, Month)?) {
-        self.name = name.capitalized
-        self.lastName = lastName.capitalized
-        self.dayOfBirth = dayOfBirth
-        self.registrationDate = registrationDate
-    }
-}
-
-class NewUcitel: NewStudent {
-    var title: Title
-    var experience: Int
-    var subjectAmount: Int
-    var salary: Float {
-        return Float(experience * subjectAmount * 1000)
-    }
-    private var tax: Float { //example of encapsulation
-        if salary <= 20000 {
-            return 0.9
-        } else {
-            return 0.7
-        }
-    }
-    var salaryArterTax: Float {
-        return salary * tax
+    func getDateOfBirth() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter.string(from: self.dateOfBirth)
     }
     
-    init(name: String, lastName: String, dayOfBirth: (Int, Month), registrationDate: (Int, Month)?, title: Title, experience: Int, subjectAmount: Int) {
-        self.title = title
-        self.experience = experience
-        self.subjectAmount = subjectAmount
-        super.init(name: name, lastName: lastName, dayOfBirth: dayOfBirth, registrationDate: registrationDate)
+    init(name: String, lastName: String, dateOfBirth: Date) {
+        self.name = name.capitalized
+        self.lastName = lastName.capitalized
+        self.dateOfBirth = dateOfBirth
     }
 }
 
-let me = NewStudent(name: "Daniil", lastName: "Krivonogov", dayOfBirth: (1, .October), registrationDate: (12,.August))
-let newUcitel = NewUcitel(name: "Martin", lastName: "Martinek", dayOfBirth: (24, .January), registrationDate: (10, .July),
-                          title: .Ing, experience: 9, subjectAmount: 3)
+class NewStudent: Human {
+    var registrationDate: Date
+    
+    func getRegistrationDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter.string(from: self.registrationDate)
+    }
+    
+     init(name: String, lastName: String, dateOfBirth: Date, registrationDate: Date) {
+        self.registrationDate = registrationDate
+         super.init(name: name, lastName: lastName, dateOfBirth: dateOfBirth)
+    }
+}
 
-var classroom = [me, newUcitel] //example of polymorphism
+class NewTeacher: NewStudent {
+    private var titleAfterNameUnwrapped = ""
+    var titleBeforeName: String
+    var titleAfterName: String? {
+        didSet {
+            if titleAfterName == nil {
+                titleAfterNameUnwrapped = ""
+            } else {
+                titleAfterNameUnwrapped = titleAfterName!
+            }
+        }
+    }
+    
+    override var fullName: String {
+        titleBeforeName + " " + name + " " + lastName + " " + titleAfterNameUnwrapped
+    }
+    
+    init(titleBeforeName: String, name: String, lastName: String, titleAfterName: String?, dateOfBirth: Date, registrationDate: Date) {
+        self.titleBeforeName = titleBeforeName
+        self.titleAfterName = titleAfterName
+        super.init(name: name, lastName: lastName, dateOfBirth:
+                    dateOfBirth, registrationDate: registrationDate)
+    }
+}
+
+let me = NewStudent(name: "daniil", lastName: "krivonogov", dateOfBirth: Date(), registrationDate: Date())
+me.fullName
+let newTeacher = NewTeacher(titleBeforeName: "Ing.", name: "Gabriela", lastName: "Vránová", titleAfterName: nil, dateOfBirth: Date(), registrationDate: Date())
+
+var classroom = [me, newTeacher] //example of polymorphism
 for i in classroom {
     print(i.sayHello())
 }
