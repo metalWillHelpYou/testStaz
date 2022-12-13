@@ -205,7 +205,8 @@ class NewTeacher: NewStudent {
 
 let me = NewStudent(name: "daniil", lastName: "krivonogov", dateOfBirth: set(date: "01/10/2001"), dateOfRegestration: set(date: "04/08/2021"))
 
-let newTeacher = NewTeacher(titleBeforeName: "Ing.", name: "Gabriela", lastName: "Vránová", titleAfterName: nil, dateOfBirth: set(date: "05/09/1986"), dateOfRegestration: set(date: "13/08/2018"))
+let newTeacher = NewTeacher(titleBeforeName: "Ing.", name: "Gabriela", lastName: "Vránová", titleAfterName: nil, 
+                            dateOfBirth: set(date: "05/09/1986"), dateOfRegestration: set(date: "13/08/2018"))
 
 var classroom = [me, newTeacher] //example of polymorphism
 for i in classroom {
