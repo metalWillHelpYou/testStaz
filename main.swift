@@ -139,25 +139,28 @@ let teacher = Teacher()
 let student = Student()
 
 //OOP 2
+func set(date: String) -> Date? {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd/MM/yyyy"
+    guard let dateOfBirth = formatter.date(from: date) else {
+        return nil
+    }
+    return dateOfBirth
+}
+
 class Human {
     var name: String
     var lastName: String
     var fullName: String {
         name + " " + lastName
     }
-    var dateOfBirth: Date
+    var dateOfBirth: Date?
     
     func sayHello() {
         print("Hello, my name is " + fullName)
     }
     
-    func getDateOfBirth() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        return formatter.string(from: self.dateOfBirth)
-    }
-    
-    init(name: String, lastName: String, dateOfBirth: Date) {
+    init(name: String, lastName: String, dateOfBirth: Date?) {
         self.name = name.capitalized
         self.lastName = lastName.capitalized
         self.dateOfBirth = dateOfBirth
@@ -165,48 +168,44 @@ class Human {
 }
 
 class NewStudent: Human {
-    var registrationDate: Date
+    var dateOfRegestration: Date?
     
-    func getRegistrationDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        return formatter.string(from: self.registrationDate)
-    }
-    
-     init(name: String, lastName: String, dateOfBirth: Date, registrationDate: Date) {
-        self.registrationDate = registrationDate
+     init(name: String, lastName: String, dateOfBirth: Date?, dateOfRegestration: Date?) {
+        self.dateOfRegestration = dateOfRegestration
          super.init(name: name, lastName: lastName, dateOfBirth: dateOfBirth)
     }
 }
 
 class NewTeacher: NewStudent {
-    private var titleAfterNameUnwrapped = ""
     var titleBeforeName: String
     var titleAfterName: String? {
-        didSet {
-            if titleAfterName == nil {
-                titleAfterNameUnwrapped = ""
+        get {
+            if self.titleAfterName == nil {
+                return ""
             } else {
-                titleAfterNameUnwrapped = titleAfterName!
+                titleAfterNameUnwrapped = self.titleAfterName!
+                return titleAfterNameUnwrapped
             }
         }
+        set {
+            titleAfterNameUnwrapped = newValue!
+        }
     }
-    
+    private var titleAfterNameUnwrapped = ""
     override var fullName: String {
         titleBeforeName + " " + name + " " + lastName + " " + titleAfterNameUnwrapped
     }
     
-    init(titleBeforeName: String, name: String, lastName: String, titleAfterName: String?, dateOfBirth: Date, registrationDate: Date) {
+    init(titleBeforeName: String, name: String, lastName: String, titleAfterName: String?, dateOfBirth: Date?, dateOfRegestration: Date?) {
         self.titleBeforeName = titleBeforeName
-        self.titleAfterName = titleAfterName
         super.init(name: name, lastName: lastName, dateOfBirth:
-                    dateOfBirth, registrationDate: registrationDate)
+                    dateOfBirth, dateOfRegestration: dateOfRegestration)
     }
 }
 
-let me = NewStudent(name: "daniil", lastName: "krivonogov", dateOfBirth: Date(), registrationDate: Date())
-me.fullName
-let newTeacher = NewTeacher(titleBeforeName: "Ing.", name: "Gabriela", lastName: "Vránová", titleAfterName: nil, dateOfBirth: Date(), registrationDate: Date())
+let me = NewStudent(name: "daniil", lastName: "krivonogov", dateOfBirth: set(date: "01/10/2001"), dateOfRegestration: set(date: "04/08/2021"))
+
+let newTeacher = NewTeacher(titleBeforeName: "Ing.", name: "Gabriela", lastName: "Vránová", titleAfterName: nil, dateOfBirth: set(date: "05/09/1986"), dateOfRegestration: set(date: "13/08/2018"))
 
 var classroom = [me, newTeacher] //example of polymorphism
 for i in classroom {
