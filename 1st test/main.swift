@@ -188,7 +188,7 @@ class NewTeacher: NewStudent {
             }
         }
         set {
-            titleAfterNameUnwrapped = newValue!
+            titleAfterNameUnwrapped = newValue! ?? ""
         }
     }
     private var titleAfterNameUnwrapped = ""
